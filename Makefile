@@ -1,6 +1,6 @@
 #****************************************************************************
 #
-# Makefile for rtwt.
+# Makefile for Keylogger.
 # Vianney Bouchaud.
 #
 # This is a GNU make (gmake) makefile
