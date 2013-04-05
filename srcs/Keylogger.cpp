@@ -14,6 +14,7 @@
 
 Keylogger::Keylogger()
 {
+  setbuf(stdout, NULL);
 }
 
 Keylogger::~Keylogger()
