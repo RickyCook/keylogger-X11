@@ -5,6 +5,16 @@ keylogger-X11
 
   * Allow to link class with a function to process string.
 
+## Installation
+
+  * Install clang and X11 record extension headers
+
+    ```$ apt-get install clang libxtst-dev```
+  
+  * ```$ make```
+
+  * You're done!
+
 ## Usages
 
 ./keylogger-X11
