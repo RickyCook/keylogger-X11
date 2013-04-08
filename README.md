@@ -9,7 +9,7 @@ keylogger-X11
 
   * Install clang and X11 record extension headers
 
-    ```$ apt-get install clang libxtst-dev```
+    ```$ apt-get install clang libxtst-dev libxt-dev```
   
   * ```$ make```
 
